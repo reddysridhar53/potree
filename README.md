@@ -15,6 +15,8 @@
 
 * PointSizeType of material made a small shift in memory when given ADAPTIVE but gave much better intensity & Depth;
 
+* Modified PointColorType of material to INTENSITY and observed a slight better variation in memory compared to RGB. With RGB it gives a much better user Experience.
+
 * Had run permutations and combinations of these properties of the potree and figured few optimal values which would be give better performance for the given pointcloud.
 
 # Here are final Values.
