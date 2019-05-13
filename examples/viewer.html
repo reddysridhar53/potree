@@ -30,6 +30,9 @@
 	<script src="../libs/jstree/jstree.js"></script>
 	<script src="../build/potree/potree.js"></script>
 	<script src="../libs/plasio/js/laslaz.js"></script>
+
+	<!-- THIS IS STATS PLUGIN TO CONSTANTLY SHOW FPS, FRAME RATE & MEMORY -->
+	<script src="//mrdoob.github.io/stats.js/build/stats.min.js"></script>
 	
 	<!-- INCLUDE ADDITIONAL DEPENDENCIES HERE -->
 	<!-- INCLUDE SETTINGS HERE -->
@@ -41,11 +44,27 @@
 	
 	<script>
 	
+		(function(){
+			var stats = new Stats();
+			document.body.appendChild(stats.dom);
+			requestAnimationFrame(function loop(){
+				stats.update();
+				requestAnimationFrame(loop)
+			});
+		})();
+	
 		window.viewer = new Potree.Viewer(document.getElementById("potree_render_area"));
 		
 		viewer.setEDLEnabled(true);
 		viewer.setFOV(60);
-		viewer.setPointBudget(1*1000*1000);
+		viewer.setPointBudget(1.25*1000*1000);
+		// viewer.loadSettingsFromURL();
+
+		// viewer.setEDLRadius(1.5); // Set EDL Radius
+		// viewer.setEDLStrength(1.4); // Set EDL Strength
+		// viewer.setFOV(80); // Field of view angle
+		// viewer.setPointBudget(2.510001000); // Point population
+		// viewer.setMinNodeSize(48);
 		viewer.loadSettingsFromURL();
 		
 		viewer.setDescription("Point cloud courtesy of <a target='_blank' href='https://www.sigeom.ch/'>sigeom sa</a>");
@@ -58,14 +77,19 @@
 		});
 		
 		// Load and add point cloud to scene
-		Potree.loadPointCloud("../pointclouds/vol_total/cloud.js", "sigeom.sa", e => {
+		const pointCloudPath = 'https://s3.amazonaws.com/cm-persistent/005f4058214ac90fd121963da5b6ab6689122af0/octrees/20180511.034342245/cloud.js';
+		
+		Potree.loadPointCloud(pointCloudPath, "sigeom.sa", e => {
 			let scene = viewer.scene;
 			let pointcloud = e.pointcloud;
 			
 			let material = pointcloud.material;
-			material.size = 1;
-			material.pointSizeType = Potree.PointSizeType.ADAPTIVE;
+			material.pointColorType = Potree.PointColorType.INTENSITY;
 			material.shape = Potree.PointShape.SQUARE;
+			material.size = 1; 
+			
+			material.pointSizeType = Potree.PointSizeType.CIRCLE;
+			// material.shape = Potree.PointShape.SQUARE;
 			
 			scene.addPointCloud(pointcloud);
 			
