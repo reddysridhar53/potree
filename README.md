@@ -3,7 +3,7 @@
 
 # Changes Made Inorder to get Optimal Performance.
 
-* Add cloud Source and enabled withCredentials to true to handle Cross Orgin Resource Sharing(CORS) on chrome.
+* Added cloud Source and enabled withCredentials to true to handle Cross Orgin Resource Sharing(CORS) on chrome.
 
 * Made changes to Viewr.html file and set PointBudget 1.25Mn which showed optimal memory usage and maintained           consitant FPS.
 
@@ -15,14 +15,14 @@
 
 * PointSizeType of material made a small shift in memory when given ADAPTIVE but gave much better intensity & Depth;
 
-* Had run permutations and ombinations of these properties of the potree and figured few optimal values which would be give better performance for the given pointcloud.
+* Had run permutations and combinations of these properties of the potree and figured few optimal values which would be give better performance for the given pointcloud.
 
 # Here are final Values.
 
 ```
     viewer.setPointBudget(1.25*1000*1000);
 
-    material.pointColorType = Potree.PointColorType.INTENSITY;
+    material.pointColorType = Potree.PointColorType.RGB;
     material.shape = Potree.PointShape.SQUARE;
     material.size = 1; 
     material.pointSizeType = Potree.PointSizeType.CIRCLE;
@@ -69,7 +69,7 @@ draw();
 ## Read in article.
 
 * PotreeConverter is implemented as a single-process tool and for very large data sets its computing time is too large.
-One alternative to improve the performance to add multi-processing in PotreeConverter.
+One alternative to improve the performance to add multi-processing in PotreeConverter.cont...
 * reference:  https://www.researchgate.net/publication/284617106_Taming_the_beast_Free_and_open-source_massive_point_cloud_web_visualization
 
 
